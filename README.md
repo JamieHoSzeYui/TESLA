@@ -1,5 +1,6 @@
 # 𝙿𝚁𝙾𝙹𝙴𝙲𝚃 丅乇丂乚卂 ©
 ![LOGO](https://telegra.ph/file/7a68593c92c85faa388f9.png)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ce23ce3b41b4ca5939a6c89ec1181a7)](https://app.codacy.com/manual/ElytrA8/TESLA?utm_source=github.com&utm_medium=referral&utm_content=ElytrA8/TESLA&utm_campaign=Badge_Grade_Settings)
 [![Build](https://github.com/ElytrA8/TESLA/workflows/FailedChecker/badge.svg?branch=TESLA)](https://github.com/ElytrA8/TESLA/actions "build")
 ![Spec](https://img.shields.io/badge/Made%20with-%E2%99%A5%EF%B8%8F-white)
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
