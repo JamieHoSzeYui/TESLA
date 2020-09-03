@@ -1,7 +1,7 @@
 <div align="center">𝙿𝚁𝙾𝙹𝙴𝙲𝚃 丅乇丂乚卂 ©</div>
 
 ![LOGO](https://telegra.ph/file/7a68593c92c85faa388f9.png)
-[![Build](https://github.com/ElytrA8/TESLA/workflows/FailedChecker/badge.svg?branch=TESLA)](https://github.com/ElytrA8/TESLA/actions "build")
+[![Build](https://github.com/JamieHoSzeYui/TESLA/workflows/FailedChecker/badge.svg?branch=TESLA)](https://github.com/ElytrA8/TESLA/actions "build")
 ![Spec](https://img.shields.io/badge/Made%20with-%E2%99%A5%EF%B8%8F-white)
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 

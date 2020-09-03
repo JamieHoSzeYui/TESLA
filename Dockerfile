@@ -69,7 +69,7 @@ RUN python3 -m ensurepip \
 #
 # Clone repo and prepare working directory
 #
-RUN git clone -b TESLA https://github.com/ElytrA8/TESLA /root/TESLA
+RUN git clone -b TESLA https://github.com/JamieHoSzeYui/TESLA /root/TESLA
 RUN mkdir /root/TESLA/bin/
 WORKDIR /root/TESLA/
 
