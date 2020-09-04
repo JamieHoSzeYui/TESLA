@@ -1,3 +1,4 @@
+
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
@@ -155,6 +156,20 @@ async def upstream(event):
         repo.heads.master.set_tracking_branch(origin.refs.master)
         repo.heads.master.checkout(True)
 
+    ac_br = repo.active_branch.name
+    if ac_br != UPSTREAM_REPO_BRANCH:
+        await event.edit(
+            '**[UPDATER]:**\n'
+            f'`Looks like you are using your own custom branch ({ac_br}). '
+            'in that case, Updater is unable to identify '
+            'which branch is to be merged. '
+            'please checkout to any official branch`')
+        return repo.__del__()
+    try:
+        repo.create_remote('upstream', off_repo)
+    except BaseException:
+        pass
+
     ups_rem = repo.remote('upstream')
     ups_rem.fetch(ac_br)
 
@@ -198,7 +213,7 @@ CMD_HELP.update({
     'ota':
     ".ota"
     "\nUsage: Checks if the main userbot repository has any updates and shows a changelog if so."
-    "\n\n.ota now"
+    "\n\n.ota update"
     "\nUsage: Update your userbot, if there are any updates in your userbot repository."
     "\n\n..ota deploy"
     "\nUsage: Deploy your userbot at heroku, if there are any updates in your userbot repository."
