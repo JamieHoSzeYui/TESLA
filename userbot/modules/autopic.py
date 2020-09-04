@@ -19,7 +19,6 @@ from PIL import Image, ImageFont, ImageDraw
 #from userge import userge, Message, Config, get_collection
 from userbot.events import register
 
-SAVED_SETTINGS = get_collection("CONFIGS")
 UPDATE_PIC = False
 BASE_PIC = "resources/base_profile_pic.jpg"
 MDFY_PIC = "resources/mdfy_profile_pic.jpg"
