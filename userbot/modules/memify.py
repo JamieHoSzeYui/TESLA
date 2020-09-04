@@ -9,7 +9,7 @@ from userbot.events import register
 from userbot import CMD_HELP
 
 
-@register("memify ?(.*)")
+@register("\.memify ?(.*)")
 async def handler(event):
     if event.fwd_from:
         return
