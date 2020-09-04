@@ -6,7 +6,7 @@ from PIL import Image, ImageFont, ImageDraw
 import textwrap
 import os
 from userbot.events import register
-from userbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from userbot import (CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY, bot, BOTLOG_CHATID)
 
 @register(outgoing=True, pattern=r"\.memify ?(.*)")
 async def handler(event):
@@ -19,13 +19,13 @@ async def handler(event):
     if not reply_message.media:
         await event.edit("```Reply to a image/sticker.```")
         return
-    file = await client.download_media(reply_message, Config.TEMP_DOWNLOAD_DIRECTORY)
+    file = await bot.download_media(reply_message, Config.TEMP_DOWNLOAD_DIRECTORY)
     await event.edit("```Memifying this image! (」ﾟﾛﾟ)｣ ```")
     text = str(event.pattern_match.group(1)).strip()
     if len(text) < 1:
         return await event.edit("You might want to try `.help memify`")
     meme = await drawText(file, text)
-    await client.send_file(event.chat_id, file=meme, force_document=False)
+    await bot.send_file(event.chat_id, file=meme, force_document=False)
     os.remove(meme)
 
 # Taken from https://github.com/UsergeTeam/Userge-Plugins/blob/master/plugins/memify.py#L64
