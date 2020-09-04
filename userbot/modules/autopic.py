@@ -16,7 +16,8 @@ from shutil import copyfile
 import aiofiles
 from PIL import Image, ImageFont, ImageDraw
 
-from userge import userge, Message, Config, get_collection
+#from userge import userge, Message, Config, get_collection
+from userbot.events import register
 
 SAVED_SETTINGS = get_collection("CONFIGS")
 UPDATE_PIC = False
@@ -35,7 +36,7 @@ async def _init() -> None:
                 media_file_.write(base64.b64decode(data['media']))
 
 
-@userge.on_cmd("autopic",
+@register.on_cmd("autopic",
                about={'header': "set profile picture",
                       'usage': "{tr}autopic\n{tr}autopic [image path]\nset timeout using {tr}sapicto"},
                allow_channels=False,
@@ -86,7 +87,7 @@ async def autopic(message: Message):
     UPDATE_PIC = asyncio.get_event_loop().create_task(apic_worker())
 
 
-@userge.add_task
+@register.add_task
 async def apic_worker():
     user_dict = await userge.get_user_dict('me')
     user = '@' + \
