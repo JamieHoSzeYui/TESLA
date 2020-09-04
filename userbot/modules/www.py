@@ -13,6 +13,7 @@ from telethon import functions
 from userbot import CMD_HELP
 from userbot.events import register
 
+
 @register(outgoing=True, pattern="^.dc$")
 async def neardc(event):
     """ For .dc command, get the nearest datacenter information. """
