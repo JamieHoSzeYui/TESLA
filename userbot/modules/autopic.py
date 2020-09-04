@@ -25,6 +25,7 @@ BASE_PIC = "resources/base_profile_pic.jpg"
 MDFY_PIC = "resources/mdfy_profile_pic.jpg"
 LOG = getLogger(__name__)
 
+
 async def _init() -> None:
     global UPDATE_PIC  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({'_id': 'UPDATE_PIC'})
