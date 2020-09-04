@@ -6,7 +6,7 @@ from PIL import Image, ImageFont, ImageDraw
 import textwrap
 import os
 from userbot.events import register
-from userbot import CMD_HELP
+from userbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
 
 @register(outgoing=True, pattern=r"\.memify ?(.*)")
 async def handler(event):
