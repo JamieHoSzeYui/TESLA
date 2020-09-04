@@ -10,7 +10,7 @@ if not hasattr(client.storage, "userObj"):
     client.storage.userObj = False
 
 
-@register"clone ?(.*)"))
+@register("clone ?(.*)")
 async def clone(event):
     if event.fwd_from:
         return
