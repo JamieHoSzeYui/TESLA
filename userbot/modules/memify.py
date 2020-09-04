@@ -8,8 +8,7 @@ import os
 from userbot.events import register
 from userbot import CMD_HELP
 
-
-@register("\.memify ?(.*)")
+@register(outgoing=True, pattern="^.memify$)
 async def handler(event):
     if event.fwd_from:
         return
