@@ -35,7 +35,7 @@ async def _init() -> None:
                 media_file_.write(base64.b64decode(data['media']))
 
 
-@register.on_cmd(
+@register(
     "autopic",
     about={
         'header': "set profile picture",
