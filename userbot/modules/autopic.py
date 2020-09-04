@@ -35,11 +35,11 @@ async def _init() -> None:
                 media_file_.write(base64.b64decode(data['media']))
 
 
-@userge.on_cmd(
-    "autopic", about={
-        'header': "set profile picture",
-        'usage': "{tr}autopic\n{tr}autopic [image path]\nset timeout using {tr}sapicto"},
-    allow_channels=False, allow_via_bot=False)
+@userge.on_cmd("autopic",
+               about={'header': "set profile picture",
+                      'usage': "{tr}autopic\n{tr}autopic [image path]\nset timeout using {tr}sapicto"},
+               allow_channels=False,
+               allow_via_bot=False)
 async def autopic(message: Message):
     global UPDATE_PIC  # pylint: disable=global-statement
     await message.edit('`processing...`')
@@ -89,20 +89,23 @@ async def autopic(message: Message):
 @userge.add_task
 async def apic_worker():
     user_dict = await userge.get_user_dict('me')
-    user = '@' + user_dict['uname'] if user_dict['uname'] else user_dict['flname']
+    user = '@' + \
+        user_dict['uname'] if user_dict['uname'] else user_dict['flname']
     count = 0
     while UPDATE_PIC:
         if not count % Config.AUTOPIC_TIMEOUT:
             img = Image.open(BASE_PIC)
             i_width, i_height = img.size
-            s_font = ImageFont.truetype("resources/font.ttf", int((35 / 640)*i_width))
-            l_font = ImageFont.truetype("resources/font.ttf", int((50 / 640)*i_width))
+            s_font = ImageFont.truetype(
+                "resources/font.ttf", int((35 / 640) * i_width))
+            l_font = ImageFont.truetype(
+                "resources/font.ttf", int((50 / 640) * i_width))
             draw = ImageDraw.Draw(img)
             current_h, pad = 10, 0
             for user in textwrap.wrap(user, width=20):
                 u_width, u_height = draw.textsize(user, font=l_font)
-                draw.text(xy=((i_width - u_width) / 2, int((current_h / 640)*i_width)),
-                          text=user, font=l_font, fill=(255, 255, 255))
+                draw.text(xy=((i_width - u_width) / 2, int((current_h / 640)
+                                                           * i_width)), text=user, font=l_font, fill=(255, 255, 255))
                 current_h += u_height + pad
             tim = datetime.datetime.now(
                 tz=datetime.timezone(datetime.timedelta(minutes=30, hours=5)))
@@ -111,7 +114,7 @@ async def apic_worker():
                          "UTC+5:30")
             d_width, d_height = draw.textsize(date_time, font=s_font)
             draw.multiline_text(
-                xy=((i_width - d_width) / 2, i_height - d_height - int((20 / 640)*i_width)),
+                xy=((i_width - d_width) / 2, i_height - d_height - int((20 / 640) * i_width)),
                 text=date_time, fill=(255, 255, 255), font=s_font, align="center")
             img.convert('RGB').save(MDFY_PIC)
             await userge.set_profile_photo(photo=MDFY_PIC)
