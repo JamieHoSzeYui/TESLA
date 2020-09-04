@@ -22,7 +22,7 @@ from userbot.events import register
 UPDATE_PIC = False
 BASE_PIC = "resources/base_profile_pic.jpg"
 MDFY_PIC = "resources/mdfy_profile_pic.jpg"
-LOG = logging.getLogger(__name__)
+LOG = getLogger(__name__)
 
 
 async def _init() -> None:
