@@ -139,6 +139,7 @@ async def amireallyalive(alive):
               f"`TESLA : {USERBOT_VERSION} `\n"
               "==================== \n"
               f"`Running on Branch ==> {UPSTREAM_REPO_BRANCH} `\n"
+              f"Warning : WIP Branch detected. \n"
               f"Tip:- Type `.help` to know about Modules Information \n")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
