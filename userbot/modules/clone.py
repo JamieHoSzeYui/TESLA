@@ -10,7 +10,7 @@ from userbot.events import register
 userObj = False
 
 
-@register("clone ?(.*)")
+@register(outgoing=True, pattern="^.clone$")
 async def clone(event):
     if event.fwd_from:
         return
