@@ -254,6 +254,7 @@ def get_markdown(reply):
         markdown.append(md_item)
     return markdown
 
+
 def is_message_image(message):
     if message.media:
         if isinstance(message.media, MessageMediaPhoto):
@@ -503,6 +504,7 @@ async def waifu(animu):
 
 def deEmojify(inputString: str) -> str:
     return re.sub(EMOJI_PATTERN, '', inputString)
+
 
 CMD_HELP.update({
     "quotly":
