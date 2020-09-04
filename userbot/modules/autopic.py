@@ -12,6 +12,7 @@ import asyncio
 import datetime
 import textwrap
 from shutil import copyfile
+from logging import basicConfig, getLogger, INFO, DEBUG
 
 import aiofiles
 from PIL import Image, ImageFont, ImageDraw
@@ -23,7 +24,6 @@ UPDATE_PIC = False
 BASE_PIC = "resources/base_profile_pic.jpg"
 MDFY_PIC = "resources/mdfy_profile_pic.jpg"
 LOG = getLogger(__name__)
-
 
 async def _init() -> None:
     global UPDATE_PIC  # pylint: disable=global-statement
