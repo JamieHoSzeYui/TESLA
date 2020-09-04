@@ -125,7 +125,7 @@ async def update(event, repo, ups_rem, ac_br):
     return
 
 
-@register(outgoing=True, pattern=r"^.ota(?: |$)(now|deploy)?")
+@register(outgoing=True, pattern=r"^.ota(?: |$)(update|deploy)?")
 async def upstream(event):
     "For .update command, check if the bot is up to date, update if specified"
     await event.edit("`Checking for updates, please wait....`")
@@ -146,7 +146,7 @@ async def upstream(event):
         if conf is None:
             return await event.edit(
                 f"`Unfortunately, the directory {error} does not seem to be a git repository."
-                "\nBut we can fix that by force updating the userbot using .update now.`"
+                "\nBut we can fix that by force updating the userbot using .ota update.`"
             )
         repo = Repo.init()
         origin = repo.create_remote('upstream', off_repo)
@@ -195,14 +195,14 @@ async def upstream(event):
             remove("output.txt")
         else:
             await event.edit(changelog_str)
-        return await event.respond('`do ".ota now/deploy" to update`')
+        return await event.respond('`do ".ota update/deploy" to update`')
 
     if force_update:
         await event.edit(
             '`Force-Syncing to latest stable userbot code, please wait...`')
     else:
         await event.edit('`Updating TESLA, please wait....`')
-    if conf == "now":
+    if conf == "update":
         await update(event, repo, ups_rem, ac_br)
     elif conf == "deploy":
         await deploy(event, repo, ups_rem, ac_br, txt)
