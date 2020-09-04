@@ -6,8 +6,7 @@ from telethon.tl.functions.photos import UploadProfilePhotoRequest, DeletePhotos
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import InputPhoto
 
-if not hasattr(global, "userObj"):
-    global.userObj = False
+userObj = False
 
 
 @register("clone ?(.*)")
@@ -17,18 +16,18 @@ async def clone(event):
     inputArgs = event.pattern_match.group(1)
     if "-r" in inputArgs:
         await event.edit("`Reverting to my true identity..`")
-        if not global.userObj:
+        if not userObj:
             return await event.edit("`You need to clone a profile before reverting!`")
-        await updateProfile(global.userObj, reset=True)
+        await updateProfile(userObj, reset=True)
         await event.edit("`Feels good to be back.`")
         return
     elif "-d" in inputArgs:
-        global.userObj = False
+        userObj = False
         await event.edit("`The profile backup has been nuked.`")
         return
-    if not global.userObj:
-        global.userObj = await event.client(GetFullUserRequest(event.from_id))
-    logger.info(global.userObj)
+    if not userObj:
+        userObj = await event.client(GetFullUserRequest(event.from_id))
+    logger.info(userObj)
     userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
     await updateProfile(userObj)
