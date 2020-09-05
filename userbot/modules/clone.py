@@ -1,16 +1,12 @@
-# For The-TG-Bot v3
-# By Priyam Kalra
-
 from telethon.tl.functions.account import UpdateProfileRequest
 from telethon.tl.functions.photos import UploadProfilePhotoRequest, DeletePhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import InputPhoto
 from userbot.events import register
-from userbot import CMD_HELP
+from userbot import CMD_HELP, STORAGE
 
-import STORAGE
-
-STORAGE.userObj = False
+if not hasattr(STORAGE, "userObj"):
+    STORAGE.userObj = False
 
 
 @register(outgoing=True, pattern=r"\.clone ?(.*)")
@@ -32,16 +28,16 @@ async def clone(event):
     if not STORAGE.userObj:
         STORAGE.userObj = await event.client(GetFullUserRequest(event.from_id))
     logger.info(STORAGE.userObj)
-    STORAGE.userObj = await getUserObj(event)
+    userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
-    await updateProfile(STORAGE.userObj)
+    await updateProfile(userObj)
     await event.edit("`I am you and you are me.`")
 
 
-async def updateProfile(STORAGE.userObj, reset=False):
-    firstName = "Deleted Account" if STORAGE.userObj.user.first_name is None else STORAGE.userObj.user.first_name
-    lastName = "" if STORAGE.userObj.user.last_name is None else STORAGE.userObj.user.last_name
-    userAbout = STORAGE.userObj.about if STORAGE.userObj.about is not None else ""
+async def updateProfile(userObj, reset=False):
+    firstName = "Deleted Account" if userObj.user.first_name is None else userObj.user.first_name
+    lastName = "" if userObj.user.last_name is None else userObj.user.last_name
+    userAbout = userObj.about if userObj.about is not None else ""
     userAbout = "" if len(userAbout) > 70 else userAbout
     if reset:
         userPfps = await client.get_profile_photos('me')
@@ -54,10 +50,10 @@ async def updateProfile(STORAGE.userObj, reset=False):
             )]))
     else:
         try:
-            userPfp = STORAGE.userObj.profile_photo
+            userPfp = userObj.profile_photo
             pfpImage = await client.download_media(userPfp)
             await client(UploadProfilePhotoRequest(await client.upload_file(pfpImage)))
-        except BaseException:
+        except:
             pass
     await client(UpdateProfileRequest(
         about=userAbout, first_name=firstName, last_name=lastName
@@ -68,16 +64,16 @@ async def getUserObj(event):
     if event.reply_to_msg_id:
         replyMessage = await event.get_reply_message()
         if replyMessage.forward:
-            STORAGE.userObj = await event.client(
+            userObj = await event.client(
                 GetFullUserRequest(replyMessage.forward.from_id or replyMessage.forward.channel_id
                                    )
             )
-            return STORAGE.userObj
+            return userObj
         else:
-            STORAGE.userObj = await event.client(
+            userObj = await event.client(
                 GetFullUserRequest(replyMessage.from_id)
             )
-            return STORAGE.userObj
+            return userObj
 
 
 CMD_HELP.update({"clone": "\
