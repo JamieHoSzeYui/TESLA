@@ -19,8 +19,6 @@ async def handler(event):
         webpage = requests.get(url).text
         if webpage:
             await event.edit(f"More info about \"[{input_str}]({url})\"")
-    except BaseException:
-        await event.edit("`Something went wrong! Please try again later.`")
 
 
 CMD_HELP.update({"htg": "\
