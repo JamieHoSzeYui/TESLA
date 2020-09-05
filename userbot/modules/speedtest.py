@@ -17,9 +17,6 @@ from userbot import (
     BOTLOG_CHATID)
 
 
-
-
-
 @register(outgoing=True, pattern=r"\.speed ?(.*)")
 async def handler(event):
     if event.fwd_from:
