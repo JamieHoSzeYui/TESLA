@@ -8,28 +8,28 @@ from telethon.tl.types import InputPhoto
 from userbot.events import register
 from userbot import CMD_HELP
 
-userObj = False
+    userObj = False
 
 
-@register(outgoing=True, pattern=r"\.clone ?(.*)")
+@register(outgoing=True, pattern=r"\.memify ?(.*)")
 async def clone(event):
     if event.fwd_from:
         return
     inputArgs = event.pattern_match.group(1)
     if "-r" in inputArgs:
         await event.edit("`Reverting to my true identity..`")
-        if not userObj:
+        if not client.storage.userObj:
             return await event.edit("`You need to clone a profile before reverting!`")
-        await updateProfile(userObj, reset=True)
+        await updateProfile(client.storage.userObj, reset=True)
         await event.edit("`Feels good to be back.`")
         return
     elif "-d" in inputArgs:
-        userObj = False
+        client.storage.userObj = False
         await event.edit("`The profile backup has been nuked.`")
         return
-    if not userObj:
-        userObj = await event.client(GetFullUserRequest(event.from_id))
-    logger.info(userObj)
+    if not client.storage.userObj:
+        client.storage.userObj = await event.client(GetFullUserRequest(event.from_id))
+    logger.info(client.storage.userObj)
     userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
     await updateProfile(userObj)
@@ -55,7 +55,7 @@ async def updateProfile(userObj, reset=False):
             userPfp = userObj.profile_photo
             pfpImage = await client.download_media(userPfp)
             await client(UploadProfilePhotoRequest(await client.upload_file(pfpImage)))
-        except BaseException:
+        except:
             pass
     await client(UpdateProfileRequest(
         about=userAbout, first_name=firstName, last_name=lastName
