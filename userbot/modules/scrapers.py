@@ -702,6 +702,7 @@ async def WooMai(netase):
                                         [msg.id, response.id, respond.id])
     await netase.delete()
 
+
 @register(outgoing=True, pattern="^.smd(?: |$)(.*)")
 async def SpoMusDown(TifyDown):
     if TifyDown.fwd_from:
