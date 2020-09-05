@@ -53,7 +53,7 @@ async def updateProfile(userObj, reset=False):
             userPfp = userObj.profile_photo
             pfpImage = await client.download_media(userPfp)
             await client(UploadProfilePhotoRequest(await client.upload_file(pfpImage)))
-        except:
+        except BaseException:
             pass
     await client(UpdateProfileRequest(
         about=userAbout, first_name=firstName, last_name=lastName
