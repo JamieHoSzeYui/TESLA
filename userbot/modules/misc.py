@@ -80,8 +80,8 @@ async def bot_community(community):
 async def bot_support(wannahelp):
     """ For .support command, just returns the group link. """
     await wannahelp.edit(
-        "Join PROJECT TESLA Group : @PROJECT_TESLA \
-        \nJoin Userbot offtopic Support Group: @ElytrA8CT")
+        "Join PROJECT TESLA Updates channel : @ProjectTESLAUpdates \
+        \nJoin Userbot Support Group: @ProjectTESLA")
 
 
 @register(outgoing=True, pattern="^.creator$")
@@ -89,14 +89,16 @@ async def creator(ereee):
     """ See who create this userbot. """
     await ereee.edit(
         "Creator of this userbot:"
-        "\n• ⚡ [ElytrA8](https://github.com/ElytrA8) ⚡")
+        "\n• ⚡ [ElytrA8](https://github.com/ElytrA8) ⚡"
+        "\nCurrent Bot Maintainer :"
+        "\n• ⚡ [henloboi](https://t.me/henloboi) ⚡")
 
 
 @register(outgoing=True, pattern="^.readme$")
 async def reedme(e):
     await e.edit(
         "Here's something for you to read:\n"
-        "\n[TESLA's README.md file](https://github.com/ElytrA8/TESLA/blob/TESLA/README.md)")
+        "\n[TESLA's README.md file](https://github.com/JamieHoSzeYui/TESLA/blob/TESLA/README.md)")
 
 
 # Copyright (c) Gegham Zakaryan | 2019
@@ -118,7 +120,7 @@ async def repeat(rep):
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        "[Click here](https://github.com/ElytrA8/TESLA) to open TESLA GitHub page."
+        "[Click here](https://github.com/JamieHoSzeYui/TESLA) to open TESLA GitHub page."
     )
 
 
