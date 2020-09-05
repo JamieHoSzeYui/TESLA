@@ -3,7 +3,7 @@ from telethon.tl.functions.photos import UploadProfilePhotoRequest, DeletePhotos
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import InputPhoto
 from userbot.events import register
-from userbot import CMD_HELP, STORAGE
+from userbot import CMD_HELP, STORAGE, LOGS
 
 if not hasattr(STORAGE, "userObj"):
     STORAGE.userObj = False
@@ -27,7 +27,7 @@ async def clone(event):
         return
     if not STORAGE.userObj:
         STORAGE.userObj = await event.client(GetFullUserRequest(event.from_id))
-    logger.info(STORAGE.userObj)
+    LOGS.info(STORAGE.userObj)
     userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
     await updateProfile(userObj)
