@@ -26,7 +26,7 @@ async def clone(event):
         await event.edit("`The profile backup has been nuked.`")
         return
     if not STORAGE.userObj:
-        STORAGE.userObj = await event.bot(GetFullUserRequest(event.from_id))
+        STORAGE.userObj = await event.client(GetFullUserRequest(event.from_id))
     LOGS.info(STORAGE.userObj)
     userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
@@ -64,13 +64,13 @@ async def getUserObj(event):
     if event.reply_to_msg_id:
         replyMessage = await event.get_reply_message()
         if replyMessage.forward:
-            userObj = await event.bot(
+            userObj = await event.client(
                 GetFullUserRequest(replyMessage.forward.from_id or replyMessage.forward.channel_id
                                    )
             )
             return userObj
         else:
-            userObj = await event.bot(
+            userObj = await event.client(
                 GetFullUserRequest(replyMessage.from_id)
             )
             return userObj
