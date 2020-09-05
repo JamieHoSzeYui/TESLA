@@ -8,7 +8,9 @@ from telethon.tl.types import InputPhoto
 from userbot.events import register
 from userbot import CMD_HELP
 
-userObj = False
+import STORAGE
+
+STORAGE.userObj = False
 
 
 @register(outgoing=True, pattern=r"\.clone ?(.*)")
@@ -18,28 +20,28 @@ async def clone(event):
     inputArgs = event.pattern_match.group(1)
     if "-r" in inputArgs:
         await event.edit("`Reverting to my true identity..`")
-        if not userObj:
+        if not STORAGE.userObj:
             return await event.edit("`You need to clone a profile before reverting!`")
-        await updateProfile(userObj, reset=True)
+        await updateProfile(STORAGE.userObj, reset=True)
         await event.edit("`Feels good to be back.`")
         return
     elif "-d" in inputArgs:
-        userObj = False
+        STORAGE.userObj = False
         await event.edit("`The profile backup has been nuked.`")
         return
-    if not userObj:
-        userObj = await event.client(GetFullUserRequest(event.from_id))
-    logger.info(userObj)
-    userObj = await getUserObj(event)
+    if not STORAGE.userObj:
+        STORAGE.userObj = await event.client(GetFullUserRequest(event.from_id))
+    logger.info(STORAGE.userObj)
+    STORAGE.userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
-    await updateProfile(userObj)
+    await updateProfile(STORAGE.userObj)
     await event.edit("`I am you and you are me.`")
 
 
-async def updateProfile(userObj, reset=False):
-    firstName = "Deleted Account" if userObj.user.first_name is None else userObj.user.first_name
-    lastName = "" if userObj.user.last_name is None else userObj.user.last_name
-    userAbout = userObj.about if userObj.about is not None else ""
+async def updateProfile(STORAGE.userObj, reset=False):
+    firstName = "Deleted Account" if STORAGE.userObj.user.first_name is None else STORAGE.userObj.user.first_name
+    lastName = "" if STORAGE.userObj.user.last_name is None else STORAGE.userObj.user.last_name
+    userAbout = STORAGE.userObj.about if STORAGE.userObj.about is not None else ""
     userAbout = "" if len(userAbout) > 70 else userAbout
     if reset:
         userPfps = await client.get_profile_photos('me')
@@ -52,7 +54,7 @@ async def updateProfile(userObj, reset=False):
             )]))
     else:
         try:
-            userPfp = userObj.profile_photo
+            userPfp = STORAGE.userObj.profile_photo
             pfpImage = await client.download_media(userPfp)
             await client(UploadProfilePhotoRequest(await client.upload_file(pfpImage)))
         except BaseException:
@@ -66,16 +68,16 @@ async def getUserObj(event):
     if event.reply_to_msg_id:
         replyMessage = await event.get_reply_message()
         if replyMessage.forward:
-            userObj = await event.client(
+            STORAGE.userObj = await event.client(
                 GetFullUserRequest(replyMessage.forward.from_id or replyMessage.forward.channel_id
                                    )
             )
-            return userObj
+            return STORAGE.userObj
         else:
-            userObj = await event.client(
+            STORAGE.userObj = await event.client(
                 GetFullUserRequest(replyMessage.from_id)
             )
-            return userObj
+            return STORAGE.userObj
 
 
 CMD_HELP.update({"clone": "\
