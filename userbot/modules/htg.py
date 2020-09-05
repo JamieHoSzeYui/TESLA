@@ -15,8 +15,14 @@ async def handler(event):
     input_str = event.pattern_match.group(1)
     query = input_str.replace(" ", "+")
     url = f"https://lmgtfy.com/?q={query}"
+    try:
+       webpage = requests.get(url).text
+       if webpage:
+           await event.edit(f"More info about \"[{input_str}]({url})\"")
+   except:
+       await event.edit(f"More info about \"[{input_str}]({url})\"")
 
-await event.edit(f"More info about \"[{input_str}]({url})\"")
+
 
 CMD_HELP.update({"htg": "\
 `.htg <query>`\
