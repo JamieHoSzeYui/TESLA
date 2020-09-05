@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pySmartDL import SmartDL
 from pylast import LastFMNetwork, md5
 from distutils.util import strtobool as sb
+from .storage import Storage
 from logging import basicConfig, getLogger, INFO, DEBUG
 from sys import version_info
 import os
@@ -17,6 +18,8 @@ import os
 
 
 load_dotenv("config.env")
+
+STORAGE = (lambda n: Storage(Path("data") / n))
 
 # Bot Logs setup:
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get(
@@ -87,7 +90,7 @@ GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN") or None
 # Custom (forked) repo URL and BRANCH for updater.
 UPSTREAM_REPO_URL = (os.environ.get("UPSTREAM_REPO_URL")
                      or "https://github.com/JamieHoSzeYui/TESLA")
-UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH") or "TESLA"
+UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH") or "test"
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get(
@@ -138,8 +141,8 @@ ALIVE_LOGO = os.environ.get(
 COUNTRY = str(os.environ.get("COUNTRY") or "")
 TZ_NUMBER = int(os.environ.get("TZ_NUMBER") or 1)
 
-# Version of One4uBot
-USERBOT_VERSION = os.environ.get("USERBOT_VERSION") or "TESLA Respawn R1"
+# Version of TESLA
+USERBOT_VERSION = "TESLA Respawn R1"
 
 # User Terminal alias
 USER_TERM_ALIAS = os.environ.get("USER_TERM_ALIAS") or "root@TESLA"
