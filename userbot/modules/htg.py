@@ -27,4 +27,3 @@ CMD_HELP.update({"htg": "\
 `.htg <query>`\
 \nUsage: A guide on how to search on google.\
 "})
-
