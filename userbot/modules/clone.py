@@ -26,7 +26,7 @@ async def clone(event):
         await event.edit("`The profile backup has been nuked.`")
         return
     if not STORAGE.userObj:
-        STORAGE.userObj = await event.client(GetFullUserRequest(event.from_id))
+        STORAGE.userObj = await event.bot(GetFullUserRequest(event.from_id))
     LOGS.info(STORAGE.userObj)
     userObj = await getUserObj(event)
     await event.edit("`Stealing this random person's identity..`")
@@ -40,9 +40,9 @@ async def updateProfile(userObj, reset=False):
     userAbout = userObj.about if userObj.about is not None else ""
     userAbout = "" if len(userAbout) > 70 else userAbout
     if reset:
-        userPfps = await client.get_profile_photos('me')
+        userPfps = await bot.get_profile_photos('me')
         userPfp = userPfps[0]
-        await client(DeletePhotosRequest(
+        await bot(DeletePhotosRequest(
             id=[InputPhoto(
                 id=userPfp.id,
                 access_hash=userPfp.access_hash,
@@ -51,11 +51,11 @@ async def updateProfile(userObj, reset=False):
     else:
         try:
             userPfp = userObj.profile_photo
-            pfpImage = await client.download_media(userPfp)
-            await client(UploadProfilePhotoRequest(await client.upload_file(pfpImage)))
+            pfpImage = await bot.download_media(userPfp)
+            await bot(UploadProfilePhotoRequest(await bot.upload_file(pfpImage)))
         except BaseException:
             pass
-    await client(UpdateProfileRequest(
+    await bot(UpdateProfileRequest(
         about=userAbout, first_name=firstName, last_name=lastName
     ))
 
@@ -64,13 +64,13 @@ async def getUserObj(event):
     if event.reply_to_msg_id:
         replyMessage = await event.get_reply_message()
         if replyMessage.forward:
-            userObj = await event.client(
+            userObj = await event.bot(
                 GetFullUserRequest(replyMessage.forward.from_id or replyMessage.forward.channel_id
                                    )
             )
             return userObj
         else:
-            userObj = await event.client(
+            userObj = await event.bot(
                 GetFullUserRequest(replyMessage.from_id)
             )
             return userObj
