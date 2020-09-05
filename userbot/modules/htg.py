@@ -14,7 +14,7 @@ async def handler(event):
         return
     input_str = event.pattern_match.group(1)
     query = input_str.replace(" ", "+")
-    url = f"https://lmgtfy.com/?q={query}&iie=1"
+    url = f"https://lmgtfy.com/?q={query}"
     try:
         webpage = requests.get(url).text
         if webpage:
