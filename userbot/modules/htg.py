@@ -7,6 +7,7 @@
 from userbot.events import register
 from userbot import CMD_HELP
 
+
 @register(outgoing=True, pattern=r"\.htg ?(.*)")
 async def handler(event):
     if event.fwd_from:
@@ -18,7 +19,7 @@ async def handler(event):
         webpage = requests.get(url).text
         if webpage:
             await event.edit(f"More info about \"[{input_str}]({url})\"")
-    except:
+    except BaseException:
         await event.edit("`Something went wrong! Please try again later.`")
 
 
