@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pySmartDL import SmartDL
 from pylast import LastFMNetwork, md5
 from distutils.util import strtobool as sb
+from .storage import Storage
 from logging import basicConfig, getLogger, INFO, DEBUG
 from sys import version_info
 import os
@@ -17,6 +18,8 @@ import os
 
 
 load_dotenv("config.env")
+
+STORAGE = (lambda n: Storage(Path("data") / n))
 
 # Bot Logs setup:
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get(
