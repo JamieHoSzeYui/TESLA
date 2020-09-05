@@ -11,7 +11,7 @@ from userbot import CMD_HELP
 userObj = False
 
 
-@register(outgoing=True, pattern=r"\.memify ?(.*)")
+@register(outgoing=True, pattern=r"\.clone ?(.*)")
 async def clone(event):
     if event.fwd_from:
         return
